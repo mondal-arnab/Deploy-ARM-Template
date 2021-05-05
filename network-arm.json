@@ -1,18 +1,40 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {},
+    "parameters": {
+        "VnetName": {
+            "type": "string",
+            "defaultValue": "VNet-001",
+            "metadata": {
+                "description": "Virtual Network Name"
+            }
+        },
+        "CostCenterIO": {
+            "type": "string",
+            "defaultValue": "12345",
+            "metadata": {
+                "description": "Cost Center IO number for cross billing"
+            }
+        },
+        "OwnerName": {
+            "type": "string",
+            "defaultValue": "John Smith",
+            "metadata": {
+                "description": "Name of the stakeholder responsible for this resource"
+            }
+        }
+    },
     "variables": {},
     "resources": [
         {
             "apiVersion": "2018-10-01",
             "type": "Microsoft.Network/virtualNetworks",
-            "name": "vnet-001",
+            "name": "[parameters('VnetName')]",
             "location": "[resourceGroup().location]",
             "tags": {
-                "CostCenter": "12345",
-                "Owner": "Team A"
-            },  
+                "CostCenter": "[parameters('CostCenterIO')]",
+                "Owner": "[parameters('OwnerName')]"
+            },
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": [
